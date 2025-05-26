@@ -27,33 +27,23 @@ def seed_everything(seed: int):
 
 def get_accuracy(path):
     df = pd.read_json(path, lines=True)
-
     label_mapping = {"support": 1, "unsupport": 0}
 
-    y_true = df["label"].map(label_mapping).tolist()
-
+    y_true = df["label"].map(lambda x: label_mapping.get(str(x).lower(), 0)).tolist()
     y_pred = []
 
     for pred in df["pred"]:
-        matches = re.findall(r"support|unsupport", pred.strip(), re.IGNORECASE)
-
-        if len(matches) > 0:
-            pred_label = label_mapping[matches[0].lower()]
-        else:
-            pred_label = None
-
+        try:
+            matches = re.findall(r"unsupport|support", str(pred).strip(), re.IGNORECASE)
+            if matches:
+                pred_label = label_mapping[matches[0].lower()]
+            else:
+                pred_label = 0
+        except:
+            pred_label = 0
         y_pred.append(pred_label)
-        
-    valid_indices = [i for i in range(len(y_pred)) if y_pred[i] is not None]
-    y_true = [y_true[i] for i in valid_indices]
-    y_pred = [y_pred[i] for i in valid_indices]
 
-    if not y_true:
-        return None, None, None, None, None
-        
     y_true = [int(label) for label in y_true]
     y_pred = [int(p) for p in y_pred]
-
-    mACC = balanced_accuracy_score(y_true, y_pred)
-
-    return mACC
+    bACC = balanced_accuracy_score(y_true, y_pred)
+    return bACC

@@ -47,8 +47,8 @@ def main(args):
             progress_bar_test.update(1)
 
     # Evaluating
-    macc = get_accuracy(path)
-    print(f'Test mAcc: {macc}')
+    bacc = get_accuracy(path)
+    print(f'Test BAcc: {bacc}')
 
 
 if __name__ == "__main__":

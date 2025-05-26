@@ -7,6 +7,14 @@ from torch_scatter import scatter
 from model.gnn import load_gnn_model
 
 
+# -----------------------------------------------------------
+# Part of this code is adapted from the G-Retriever project:
+# https://github.com/XiaoxinHe/G-Retriever
+# He et al. (2024), "G-Retriever: Retrieval-Augmented Generation for Textual Graph Understanding and Question Answering"
+# arXiv:2402.07630
+# -----------------------------------------------------------
+
+
 BOS = '<s>[INST]'
 EOS_USER = '[/INST]'
 EOS = '</s>'
@@ -109,8 +117,6 @@ class GraphCheck(torch.nn.Module):
         else:  
             doc_embeds = doc_n_embeds.mean(dim=0, keepdim=True)
 
-        claim_embeds = scatter(claim_n_embeds, claim_kg.batch, dim=0, reduce='mean')
-        doc_embeds = scatter(doc_n_embeds, doc_kg.batch, dim=0, reduce='mean')
         return claim_embeds, doc_embeds
 
     def forward(self, data):

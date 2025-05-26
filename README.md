@@ -4,7 +4,37 @@
 
 GraphCheck is a fact-checking method that integrates knowledge graphs (KGs) to enhance LLM-based fact-checking, specifically for long-form text. By addressing the limitations of LLMs in capturing complex entity relationships, GraphCheck overcomes issues related to overlooked factual errors. The method leverages graph neural networks (GNNs) to integrate representations from both the generated claim and the source document KGs, enabling fine-grained fact-checking within a single model call. This significantly improves efficiency in the fact-checking process.
 
-## Environment Setup
+<p align="center">
+  <img src="Figs/graphcheck-framework.svg" style="max-width:100%; height:auto;">
+</p>
+
+## 📚 Datasets
+
+We construct the training and evaluation datasets under the `/dataset` directory.
+
+- **Training**:  
+  Based on 14K synthetic samples generated from [**MiniCheck**](https://github.com/Liyan06/MiniCheck?tab=readme-ov-file#description), we extract knowledge graph triples from both documents and claims to construct the training set:
+  - `MiniCheck_Train`
+
+- **Evaluation**:  
+  We use reconstructed evaluation benchmarks:
+  - `AggreFact-XSum`
+  - `AggreFact-CNN`
+  - `summeval`
+  - `ExpertQA`
+  - `COVID-Fact`
+  - `SCIFact`
+  - `PubHealth`
+
+Each data entry contains:
+- `doc_text`: original document text  
+- `claim_text`: the associated claim  
+- `doc_kg`: extracted knowledge graphs from the document  
+- `claim_kg`: extracted knowledge graphs from the claim  
+- `label`: ground-truth label
+
+
+## ⚙️ Environment Setup
 
 To set up the environment, simply run the following command to install all the required dependencies:
 
@@ -12,31 +42,39 @@ To set up the environment, simply run the following command to install all the r
 pip install -r requirements.txt
 ```
 
-## Data Preprocessing
+## 🛠️ Data Preprocessing
 
-Before running, you need to preprocess the data by building the knowledge graph (KG) for the dataset. 
-To build the graph for a specific dataset, use the following command:
-
-```bash
-python graph_build.py --data_name <dataset_name>
-```
-
-## Inference
-
-To run the inference and reproduce the results presented in the paper, you can use the provided script `run_inference.sh`. This script automates the process and ensures that the inference is run in the correct environment with all necessary parameters.
-
-Simply execute the script with the following command:
+Before running, you need to preprocess the data by building the knowledge graph (KG) for each dataset, use the following command:
 
 ```bash
-bash run_inference.sh
+bash graph_building.sh
 ```
 
-## Training
+## 🧠 Training
 
-To train the model, you first need to modify the configuration parameters in `./src/config.py`. This file contains the hyperparameters and settings required for training the model, such as learning rate, batch size and number of epochs.
-
-After that, you can start the training process by running the following command:
+To start training, simply run:
 
 ```bash
-python train.py
+bash train.sh
 ```
+You can customize the training by modifying the configuration file at `./src/config.py`. This file includes key hyperparameters and settings such as learning rate, batch size, and number of epochs.
+
+## 🚀 Quick Evaluation
+
+To quickly evaluate the model, simply run:
+
+   ```bash
+   bash evaluate.sh
+   ```
+
+## 📌 Citation
+
+If you find our project helpful, please feel free to leave a ⭐ and cite our paper:
+
+```bibtex
+@article{chen2025graphcheck,
+  title={GraphCheck: Breaking Long-Term Text Barriers with Extracted Knowledge Graph-Powered Fact-Checking},
+  author={Chen, Yingjian and Liu, Haoran and Liu, Yinhong and Yang, Rui and Yuan, Han and Fu, Yanran and Zhou, Pengyuan and Chen, Qingyu and Caverlee, James and Li, Irene},
+  journal={arXiv preprint arXiv:2502.16514},
+  year={2025}
+}

@@ -110,8 +110,8 @@ def main(args):
     torch.cuda.reset_max_memory_allocated()
 
     # Evaluating
-    os.makedirs(f'{args.output_dir}/{args.dataset}', exist_ok=True)
-    path = f'{args.output_dir}/{args.dataset}/model_name_{args.model_name}_llm_model_name_{args.llm_model_name}_llm_frozen_{args.llm_frozen}_max_txt_len_{args.max_txt_len}_max_new_tokens_{args.max_new_tokens}_gnn_model_name_{args.gnn_model_name}_patience_{args.patience}_num_epochs_{args.num_epochs}_seed{seed}.csv'
+    os.makedirs(f'{args.output_dir}/{args.project}', exist_ok=True)
+    path = path = f'{args.output_dir}/{args.project}/validation.csv'
     print(f'path: {path}')
 
     model = _reload_best_model(model, args)
@@ -126,8 +126,8 @@ def main(args):
                     f.write(json.dumps(dict(row)) + "\n")
             progress_bar_test.update(1)
 
-    macc = get_accuracy(path)
-    print(f'Test mAcc: {macc}')
+    bacc = get_accuracy(path)
+    print(f'Test BAcc: {bacc}')
 
 
 if __name__ == "__main__":

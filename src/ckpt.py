@@ -2,7 +2,7 @@ import os
 import torch
 
 def _save_checkpoint(model, optimizer, cur_epoch, args, is_best=False):
-    os.makedirs(f'{args.output_dir}/{args.dataset}', exist_ok=True)
+    os.makedirs(f'{args.output_dir}/{args.project}', exist_ok=True)
 
     param_grad_dic = {
         k: v.requires_grad for (k, v) in model.named_parameters()
