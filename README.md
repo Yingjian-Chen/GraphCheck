@@ -1,7 +1,6 @@
-# GraphCheck: Breaking Long-Term Text Barriers with Extracted Knowledge Graph-Powered Fact-Checking
-[![Static Badge](https://img.shields.io/badge/2502.16514-Arxiv?style=flat&logo=arxiv&logoColor=%23B31B1B&logoSize=auto&label=Arxiv&labelColor=%23FFFFFF&color=%23B31B1B)](https://arxiv.org/abs/2502.16514)
-
-
+# GraphCheck: Breaking Long-Term Text Barriers with Extracted Knowledge Graph-Powered Fact-Checking [ACL 2025]
+[![ArXiv](https://img.shields.io/badge/2502.16514-Arxiv?style=flat&logo=arxiv&logoColor=%23B31B1B&logoSize=auto&label=Arxiv&labelColor=%23FFFFFF&color=%23B31B1B&link=https%3A%2F%2Farxiv.org%2Fabs%2F2502.16514
+)](https://arxiv.org/abs/2502.16514)
 
 GraphCheck is a fact-checking method that integrates knowledge graphs (KGs) to enhance LLM-based fact-checking, specifically for long-form text. By addressing the limitations of LLMs in capturing complex entity relationships, GraphCheck overcomes issues related to overlooked factual errors. The method leverages graph neural networks (GNNs) to integrate representations from both the generated claim and the source document KGs, enabling fine-grained fact-checking within a single model call. This significantly improves efficiency in the fact-checking process.
 
